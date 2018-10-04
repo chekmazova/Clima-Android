@@ -40,8 +40,8 @@ public class WeatherController extends AppCompatActivity {
     final float MIN_DISTANCE = 1000;
 
     // TODO: Set LOCATION_PROVIDER here:
-    //GPS provider - suitable for our emulator, if we want to use real device we should choose NETWORK Provider and COURSE location in manifest
-    String LOCATION_PROVIDER = LocationManager.GPS_PROVIDER;
+    //GPS provider - suitable for our emulator, if we want to use real device we should choose NETWORK Provider and COARSE location in manifest / FINE_location for emulator
+    String LOCATION_PROVIDER = LocationManager.NETWORK_PROVIDER;
 
 
     // Member Variables:
@@ -109,6 +109,7 @@ public class WeatherController extends AppCompatActivity {
 
     // TODO: Add getWeatherForCurrentLocation() here:
     private void getWeatherForCurrentLocation() {
+        Log.d("Clima", "getWeatherForCurrentCity called");
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         mLocationListener = new LocationListener() {
@@ -133,12 +134,14 @@ public class WeatherController extends AppCompatActivity {
 
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
+                Log.d("Clima","onStatusChanged() callback received. Status: " + status);
+                Log.d("Clima","2 means AVAILABLE, 1: TEMPORARILY_UNAVAILABLE, 0: OUT_OF_SERVICE");
 
             }
 
             @Override
             public void onProviderEnabled(String provider) {
-
+                Log.d("Clima","onProviderEnabled() callback received. Provider: " + provider);
             }
 
             @Override
